@@ -1,7 +1,12 @@
 <h1>{{title}}</h1>
+<!-- ナビゲーション -->
 <nav>
+  <!-- ダッシュボードへ遷移 -->
+  <a routerLink="/dashboard">Dashboard</a>
+  <!-- ヒーローリストへ遷移 -->
   <a routerLink="/heroes">Heroes</a>
 </nav>
+<!-- ルーティング情報によって画面操作で表示が切り替わる要素 -->
 <router-outlet></router-outlet>
 <!-- メッセージを出力 -->
 <app-messages></app-messages>
