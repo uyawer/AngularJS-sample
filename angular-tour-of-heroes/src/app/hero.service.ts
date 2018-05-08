@@ -13,7 +13,7 @@ const httpOptions = {
 @Injectable()
 export class HeroService {
 
-  private heroesUrl = 'api/heroes';  // Web APIのURL
+  private heroesUrl = 'http://localhost:8080/api/heroes';
 
   constructor(private http: HttpClient, private messageService: MessageService) {
   }
@@ -23,7 +23,7 @@ export class HeroService {
    * @returns {Hero[]} Hero情報のリスト
    */
   getHeroes(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl).pipe(
+    return this.http.get<Hero[]>(`${this.heroesUrl}`).pipe(
       tap(() => this.log(`fetched heroes`)),
       catchError(this.handleError('getHeroes', []))
     );
@@ -39,7 +39,7 @@ export class HeroService {
 
   /** PUT: サーバー上でヒーローを更新 */
   updateHero(hero: Hero): Observable<any> {
-    return this.http.put(this.heroesUrl, hero, httpOptions).pipe(
+    return this.http.put(`${this.heroesUrl}`, hero, httpOptions).pipe(
       tap(_ => this.log(`updated hero id=${hero.id}`)),
       catchError(this.handleError<any>('updateHero'))
     );
@@ -47,7 +47,7 @@ export class HeroService {
 
   /** POST: サーバーに新しいヒーローを登録する */
   addHero(hero: Hero): Observable<Hero> {
-    return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
+    return this.http.post<Hero>(`${this.heroesUrl}`, hero, httpOptions).pipe(
       tap((hero: Hero) => this.log(`added hero w/ id=${hero.id}`)),
       catchError(this.handleError<Hero>('addHero'))
     );
@@ -70,7 +70,7 @@ export class HeroService {
       // 検索語がない場合、空のヒーロー配列を返す
       return of([]);
     }
-    return this.http.get<Hero[]>(`api/heroes/?name=${term}`).pipe(
+    return this.http.get<Hero[]>(`${this.heroesUrl}/search?name=${term}`).pipe(
       tap(_ => this.log(`found heroes matching "${term}"`)),
       catchError(this.handleError<Hero[]>('searchHeroes', []))
     );
