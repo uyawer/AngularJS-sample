@@ -32,3 +32,20 @@ nav a:hover {
 nav a.active {
   color: #039be5;
 }
+
+a#logout {
+  background-color: crimson;
+}
+
+a#logout:visited, a:link {
+  color: white;
+}
+
+a#logout:hover {
+  color: #eee;
+  background-color: #dc535d;
+}
+
+a#logout.active {
+  color: #eee;
+}
